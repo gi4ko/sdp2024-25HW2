@@ -1,0 +1,8 @@
+bear 5
+bell 3
+bid 4
+bull 6
+buy 2
+sell 7
+stock 8
+stop 1

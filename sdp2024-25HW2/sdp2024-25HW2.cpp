@@ -67,37 +67,42 @@ void findTopWords(const string& filename, const Trie& dictionary, int M) {
 int main() {
     //testHeap();
     //testTrie();
-
-    // Създаваме речника от words.txt
-    Trie dictionary;
-    ifstream dictFile("words.txt");
-    if (!dictFile) {
-        cout << "Error opening dictionary file!" << endl;
-        return 1;
-    }
-
-    string word;
-    int value;
-    while (dictFile >> word >> value) {
-        dictionary.insert(word, value);
-    }
-
-    // Четем M от потребителя
-    int M;
-    cout << "Enter number of words to display (M): ";
-    cin >> M;
-    if (M < 0) {
-        cout << "M must be non-negative!" << endl;
-        return 1;
-    }
-
     try {
-        findTopWords("text.txt", dictionary, M);
+        // Създаваме речника от words.txt
+        Trie dictionary;
+        ifstream dictFile("words.txt");
+        if (!dictFile) {
+            cout << "Error opening dictionary file!" << endl;
+            return 1;
+        }
+
+        string word;
+        int value;
+        while (dictFile >> word >> value) {
+            dictionary.insert(word, value);
+        }
+
+        // Четем M от потребителя
+        int M;
+        cout << "Enter number of words to display (M): ";
+        cin >> M;
+        if (M < 0) {
+            cout << "M must be non-negative!" << endl;
+            return 1;
+        }
+
+        try {
+            findTopWords("text.txt", dictionary, M);
+        }
+        catch (const runtime_error& e) {
+            cout << "Error: " << e.what() << endl;
+            return 1;
+        }
     }
-    catch (const runtime_error& e) {
-        cout << "Error: " << e.what() << endl;
+    catch (const bad_alloc& e) {
+        cout << "Memory allocation failed: " << e.what() << endl;
         return 1;
     }
-    //ТODO: ако М > от .size na пирамидата throw "You cannot extraxt "M"  min words from ".size"  lenght of a text!"
+    
     return 0;
 }

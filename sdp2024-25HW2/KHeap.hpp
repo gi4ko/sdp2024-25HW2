@@ -45,7 +45,7 @@ public:
     
     void heapify(std::vector<T>& arr) {
         data = arr;
-        for (size_t i = data.size() / k - 1; i < data.size(); i--) {
+        for (int i = data.size() / k - 1; i >= 0; i--) {
             siftDown(i);
         }
         arr = data;
